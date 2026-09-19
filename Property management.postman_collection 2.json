@@ -1,0 +1,3623 @@
+{
+	"info": {
+		"_postman_id": "f13743f5-4580-4cf1-9c26-77b1907d5581",
+		"name": "Property management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49088097",
+		"_collection_link": "https://www.postman.com/property-management-7534/workspace/my-workspace/collection/49088097-f13743f5-4580-4cf1-9c26-77b1907d5581?action=share&source=collection_link&creator=49088097"
+	},
+	"item": [
+		{
+			"name": "auth apis",
+			"item": [
+				{
+					"name": "OTP",
+					"item": [
+						{
+							"name": "send otp",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    // \"phone_or_email\":\"+8801806779323\",\n    // \"type\":\"phone\"  //email\n    \"phone_or_email\":\"cleaner4@email.com\",\n    \"type\":\"email\" // phone or email\n\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}otp/send-otp/",
+									"host": [
+										"{{base_url}}otp"
+									],
+									"path": [
+										"send-otp",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify otp",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    // \"phone_or_email\":\"+8801806779323\",\n\n    // \"otp\":\"563620\"\n\n    \"phone_or_email\":\"mniloy695@gmail.com\",\n    \"otp\":\"632199\",\n    \"type\":\"email\" //phone or email\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}otp/verify-otp/",
+									"host": [
+										"{{base_url}}otp"
+									],
+									"path": [
+										"verify-otp",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "set new password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    // \"phone_or_email\":\"+8801806779323\",\n    \"phone_or_email\":\"mniloy695@gmail.com\",\n    \"otp\":632199,\n    \"new_password\":1234,\n    \"confirm_password\":1234\n\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}otp/forgot-password/",
+									"host": [
+										"{{base_url}}otp"
+									],
+									"path": [
+										"forgot-password",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Profile",
+					"item": [
+						{
+							"name": "get profile",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{auth_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}accounts/profile/",
+									"host": [
+										"{{base_url}}accounts"
+									],
+									"path": [
+										"profile",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update profile",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{mini_admin}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}accounts/profile/17/",
+									"host": [
+										"{{base_url}}accounts"
+									],
+									"path": [
+										"profile",
+										"17",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_auth}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"old_password\":1234,\n    \"new_password\":123,\n    \"confirm_password\":123\n\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}accounts/password/change/",
+							"host": [
+								"{{base_url}}accounts"
+							],
+							"path": [
+								"password",
+								"change",
+								""
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{json_web_token}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phone_or_email\":\"+8801806779323\", //admin\n    // \"phone_or_email\":\"maintainer5@email.com\",  //maintainer\n    // \"phone_or_email\":\"miniadmin@email.com\",  //mini admin      \n    // \"phone_or_email\":\"cleaner4@email.com\", ///cleaner\n    // \"phone_or_email\":\"mniloy6953@gmail.com\",\n\n    // \"phone_or_email\":\"mniloy695@gmail.com\",\n    // \"phone_or_email\":\"cleaner3@email.com\",\n    // \"phone_or_email\":\"mniloy6953@gmail.com \", ///cleaner\n\n    // \"phone_or_email\":\"cleaner4@gmail.com\",\n    // \"phone_or_email\":\"+447950413594\",\n    \n    \n    \"password\":\"123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}accounts/login/",
+							"host": [
+								"{{base_url}}accounts"
+							],
+							"path": [
+								"login",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin action",
+			"item": [
+				{
+					"name": "User management",
+					"item": [
+						{
+							"name": "CRUD Operation",
+							"item": [
+								{
+									"name": "add user",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{auth_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"phone_or_email\": \"example1@email.com\",\n    \"password\": \"123\",\n    \"role\": \"maintainer\",\n    \"assigned_areas\": [1],\n    \"user_profile\": {\n        \"full_name\": \"John Doe\",\n        \"email\": \"example@email.com\",\n        \"city\": \"Dhaka\",\n        \"state\": \"Dhaka\",\n        //\"avatar\":\"file\",\n        \"full_address\": \"House 123, Road 456, Dhaka\"\n    }\n}\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}accounts/users/",
+											"host": [
+												"{{base_url}}accounts"
+											],
+											"path": [
+												"users",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "view all user",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{admin_auth}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}accounts/users/",
+											"host": [
+												"{{base_url}}accounts"
+											],
+											"path": [
+												"users",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "view single user",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{admin_auth}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}accounts/users/20/",
+											"host": [
+												"{{base_url}}accounts"
+											],
+											"path": [
+												"users",
+												"20",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "active deactive user",
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{admin_auth}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}accounts/users/{user id }/active_and_deactive_user/",
+											"host": [
+												"{{base_url}}accounts"
+											],
+											"path": [
+												"users",
+												"{user id }",
+												"active_and_deactive_user",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "update user",
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{auth_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"phone_or_email\":\"cleaner4@email.com\",\n    \"password\": \"1234\",\n    \"assigned_areas\": [1],\n    \"user_profile\": {\n        \"full_name\": \"John Doe maintainer\",\n        \"email\": \"example@email.com\",\n        \"city\": \"Dhaka\",\n        \"state\": \"Dhaka\",\n        //\"avatar\":\"file\",\n        \"full_address\": \"House 123, Road 456, Dhaka\"\n    }\n}\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}accounts/users/16/",
+											"host": [
+												"{{base_url}}accounts"
+											],
+											"path": [
+												"users",
+												"16",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete the user",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{admin_auth}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}accounts/users/21/",
+											"host": [
+												"{{base_url}}accounts"
+											],
+											"path": [
+												"users",
+												"21",
+												""
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "user search and filter",
+							"item": [
+								{
+									"name": "cleaner filter",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{auth_token}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}accounts/users/?role=cleaner",
+											"host": [
+												"{{base_url}}accounts"
+											],
+											"path": [
+												"users",
+												""
+											],
+											"query": [
+												{
+													"key": "role",
+													"value": "cleaner"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "maintainer filter",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{auth_token}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}accounts/users/?role=maintainer",
+											"host": [
+												"{{base_url}}accounts"
+											],
+											"path": [
+												"users",
+												""
+											],
+											"query": [
+												{
+													"key": "role",
+													"value": "maintainer"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "mini_admin filter",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{auth_token}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}accounts/users/?role=mini_admin",
+											"host": [
+												"{{base_url}}accounts"
+											],
+											"path": [
+												"users",
+												""
+											],
+											"query": [
+												{
+													"key": "role",
+													"value": "mini_admin"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "filter user by area and role",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{mini_admin}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}accounts/users/?assigned_areas=1&role=maintainer",
+											"host": [
+												"{{base_url}}accounts"
+											],
+											"path": [
+												"users",
+												""
+											],
+											"query": [
+												{
+													"key": "assigned_areas",
+													"value": "1"
+												},
+												{
+													"key": "role",
+													"value": "maintainer"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "search user",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{auth_token}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}accounts/users/?search=main",
+											"host": [
+												"{{base_url}}accounts"
+											],
+											"path": [
+												"users",
+												""
+											],
+											"query": [
+												{
+													"key": "search",
+													"value": "main"
+												},
+												{
+													"key": "role",
+													"value": "mini_admin",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Bulding and Flat Manage",
+					"item": [
+						{
+							"name": "Bulding manage",
+							"item": [
+								{
+									"name": "view all building",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{admin_auth}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}building/list/",
+											"host": [
+												"{{base_url}}building"
+											],
+											"path": [
+												"list",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "view all building area wise",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{admin_auth}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}building/list/?area=2",
+											"host": [
+												"{{base_url}}building"
+											],
+											"path": [
+												"list",
+												""
+											],
+											"query": [
+												{
+													"key": "area",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "apartmenst list under building",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{admin_auth}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}building/list/9/list_apartments/",
+											"host": [
+												"{{base_url}}building"
+											],
+											"path": [
+												"list",
+												"9",
+												"list_apartments",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "view single building",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{mini_admin}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}building/list/5/",
+											"host": [
+												"{{base_url}}building"
+											],
+											"path": [
+												"list",
+												"5",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "add a building",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{auth_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "sundorbon Tower",
+													"type": "text"
+												},
+												{
+													"key": "avatar",
+													"type": "file",
+													"src": "postman-cloud:///1f12c060-ce75-4870-8a9c-c27a4c45cfc2"
+												},
+												{
+													"key": "city",
+													"value": "feni",
+													"type": "text"
+												},
+												{
+													"key": "full_address",
+													"value": "feni ,dhaka",
+													"type": "text"
+												},
+												{
+													"key": "area",
+													"value": "1",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}building/list/",
+											"host": [
+												"{{base_url}}building"
+											],
+											"path": [
+												"list",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "update buiding",
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{admin_auth}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "avatar",
+													"type": "file",
+													"src": "postman-cloud:///1f12c17d-7391-4b70-b1ab-36ddba99412e"
+												},
+												{
+													"key": "name",
+													"value": "salah uddin niloy",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}building/list/6/",
+											"host": [
+												"{{base_url}}building"
+											],
+											"path": [
+												"list",
+												"6",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete building",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{auth_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}building/list/1/",
+											"host": [
+												"{{base_url}}building"
+											],
+											"path": [
+												"list",
+												"1",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "apartment under building",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{admin_auth}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}building/apartment/?building=2",
+											"host": [
+												"{{base_url}}building"
+											],
+											"path": [
+												"apartment",
+												""
+											],
+											"query": [
+												{
+													"key": "building",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "flat manage",
+							"item": [
+								{
+									"name": "view all flat",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{admin_auth}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}building/apartment/",
+											"host": [
+												"{{base_url}}building"
+											],
+											"path": [
+												"apartment",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "single falt view",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{admin_auth}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}building/apartment/12/",
+											"host": [
+												"{{base_url}}building"
+											],
+											"path": [
+												"apartment",
+												"12",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "add apartment",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{admin_auth}}",
+												"type": "text"
+											},
+											{
+												"key": "",
+												"value": "",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "flat_number",
+													"value": "123221321",
+													"type": "text"
+												},
+												{
+													"key": "bad_room",
+													"value": "1",
+													"type": "text"
+												},
+												{
+													"key": "bed_configuration",
+													"value": "21312",
+													"type": "text"
+												},
+												{
+													"key": "people",
+													"value": "2",
+													"type": "text"
+												},
+												{
+													"key": "building",
+													"value": "3",
+													"type": "text"
+												},
+												{
+													"key": "reference_photos[0].photo",
+													"type": "file",
+													"src": "postman-cloud:///1f12c1d2-7d3e-4d30-9271-675e2711fc55"
+												},
+												{
+													"key": "reference_photos[1].photo",
+													"type": "file",
+													"src": "postman-cloud:///1f12c106-b9bf-4d80-b6f1-4f83a78b94c3"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}building/apartment/",
+											"host": [
+												"{{base_url}}building"
+											],
+											"path": [
+												"apartment",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "update the flat",
+									"request": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{admin_auth}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "reference_photos[0].photo",
+													"type": "file",
+													"src": "postman-cloud:///1f12c060-ce75-4870-8a9c-c27a4c45cfc2"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}building/apartment/12/",
+											"host": [
+												"{{base_url}}building"
+											],
+											"path": [
+												"apartment",
+												"12",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete flat",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{auth_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "{{base_url}}building/apartment/7/",
+											"host": [
+												"{{base_url}}building"
+											],
+											"path": [
+												"apartment",
+												"7",
+												""
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Maintainace",
+					"item": [
+						{
+							"name": "Maintainance Building  view",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{admin_auth}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}report_issue/building-wise-distinct-maintenance-issue/",
+									"host": [
+										"{{base_url}}report_issue"
+									],
+									"path": [
+										"building-wise-distinct-maintenance-issue",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "building wise maintainance issue",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{admin_auth}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}report_issue/list/?task__building__id=5&issue_type=maintenance&status=processing",
+									"host": [
+										"{{base_url}}report_issue"
+									],
+									"path": [
+										"list",
+										""
+									],
+									"query": [
+										{
+											"key": "task__building__id",
+											"value": "5"
+										},
+										{
+											"key": "issue_type",
+											"value": "maintenance"
+										},
+										{
+											"key": "status",
+											"value": "processing"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "without filter all issue",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{admin_auth}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}report_issue/list/",
+									"host": [
+										"{{base_url}}report_issue"
+									],
+									"path": [
+										"list",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "schedule Task Manage",
+					"item": [
+						{
+							"name": "view schedule",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{admin_auth}}",
+										"type": "text"
+									},
+									{
+										"key": "Accept-Encoding",
+										"value": "gzip",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}schedule/list/",
+									"host": [
+										"{{base_url}}schedule"
+									],
+									"path": [
+										"list",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "submission",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{admin_auth}}",
+										"type": "text"
+									},
+									{
+										"key": "Accept-Encoding",
+										"value": "gzip",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}schedule/submission/list/",
+									"host": [
+										"{{base_url}}schedule"
+									],
+									"path": [
+										"submission",
+										"list",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "view schedule with filter",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{admin_auth}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}schedule/list/?area=2&building=3&task_type=cleaning&date=2024-05-20&time=10:00",
+									"host": [
+										"{{base_url}}schedule"
+									],
+									"path": [
+										"list",
+										""
+									],
+									"query": [
+										{
+											"key": "area",
+											"value": "2"
+										},
+										{
+											"key": "building",
+											"value": "3"
+										},
+										{
+											"key": "task_type",
+											"value": "cleaning"
+										},
+										{
+											"key": "date",
+											"value": "2024-05-20"
+										},
+										{
+											"key": "time",
+											"value": "10:00"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "assign a task or schedule",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{admin_auth}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"area\": 1,\n  \"building\":18,\n  \"flat\": 59,\n  \"assigned_to\": [30], \n  \"task_type\": \"cleaning\",\n  \"date\": \"2026-07-10\",\n  \"time\": \"14:00:00\",\n  \"note\": \"Please deep clean the living room.\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}schedule/list/",
+									"host": [
+										"{{base_url}}schedule"
+									],
+									"path": [
+										"list",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update schedule task",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{admin_auth}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "referance_photos[0].photo",
+											"type": "file",
+											"src": "postman-cloud:///1f12c106-b9bf-4d80-b6f1-4f83a78b94c3"
+										},
+										{
+											"key": "referance_photos[1].photo",
+											"type": "file",
+											"src": "postman-cloud:///1f12c17d-7391-4b70-b1ab-36ddba99412e"
+										},
+										{
+											"key": "note",
+											"value": "do do do ,go go go",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}schedule/list/31/",
+									"host": [
+										"{{base_url}}schedule"
+									],
+									"path": [
+										"list",
+										"31",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Solving issue",
+					"item": [
+						{
+							"name": "view all completion-report",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{cleaner_auth}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}report_issue/completion-report/list/",
+									"host": [
+										"{{base_url}}report_issue"
+									],
+									"path": [
+										"completion-report",
+										"list",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get single issue completion report",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{admin_auth}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}report_issue/completion-report/list/2/",
+									"host": [
+										"{{base_url}}report_issue"
+									],
+									"path": [
+										"completion-report",
+										"list",
+										"2",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "filter completion report",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{cleaner_auth}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}report_issue/completion-report/list/?status=processing",
+									"host": [
+										"{{base_url}}report_issue"
+									],
+									"path": [
+										"completion-report",
+										"list",
+										""
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "processing",
+											"description": "can_not_do  or  processing or completed"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "single completion report",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{maintainer_auth}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    // \"parts_cost\": \"50.00\",\n    // \"labour_cost\": \"20.00\",\n    \"status\": \"completed\",\n    // \"why_cannot_do\": \"\",\n    // \"additional_notes\": \"note\",\n    // \"created_at\": \"2026-04-22T08:29:19.258185Z\",\n    // \"updated_at\": \"2026-04-22T08:29:19.261237Z\",\n    // \"reported_by\": 19\n    \"note_list\":[\n        {\n            \"report_issue_note\":\"thire is no note\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}report_issue/completion-report/list/9/",
+									"host": [
+										"{{base_url}}report_issue"
+									],
+									"path": [
+										"completion-report",
+										"list",
+										"9",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "single completion report Copy",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{maintainer_auth}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"parts_cost\": \"50.00\",\n    \"labour_cost\": \"20.00\",\n    \"status\": \"processing\",\n    \"why_cannot_do\": \"no\",\n    \"additional_notes\": \"note\",\n    \"created_at\": \"2026-04-22T08:29:19.258185Z\",\n    \"updated_at\": \"2026-04-22T08:29:19.261237Z\",\n    \"reported_by\": 19\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}report_issue/completion-report/list/1/",
+									"host": [
+										"{{base_url}}report_issue"
+									],
+									"path": [
+										"completion-report",
+										"list",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "submit completion-report",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{maintainer_auth}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"report_issue\":9,\n    \"parts_cost\":45,\n    \"labour_cost\":20,\n    \"is_completed\":true,\n    \"status\":\"processing\", //processing or completed or can_not_do\n    \"why_cannot_do\":\"no\", //if status is can_not_do then this field is required\n    \"additional_notes\":\"note\",\n    \"note_list\":[\n        {\n            \"report_issue_note\":\"parts_ordered\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}report_issue/completion-report/list/",
+									"host": [
+										"{{base_url}}report_issue"
+									],
+									"path": [
+										"completion-report",
+										"list",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "weekly wages",
+					"item": [
+						{
+							"name": "config weekly wages",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{admin_auth}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"cleaner\":22,\n    \"rate_per_task\":100\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}weekly_wages/config/",
+									"host": [
+										"{{base_url}}weekly_wages"
+									],
+									"path": [
+										"config",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update weekly wages fee of clenaer",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{admin_auth}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"rate_per_task\":100\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}weekly_wages/config/1/",
+									"host": [
+										"{{base_url}}weekly_wages"
+									],
+									"path": [
+										"config",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "generate weekly wages",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{admin_auth}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    // \"start_date\":\"2026-04-04\",\n    // \"end_date\":\"2026-05-30\"\n    \"start_date\":\"2026-07-20\",\n    \"end_date\":\"2026-07-21\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}weekly_wages/wages/generate_wages/",
+									"host": [
+										"{{base_url}}weekly_wages"
+									],
+									"path": [
+										"wages",
+										"generate_wages",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "view weekly wages",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{admin_auth}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}weekly_wages/wages/",
+									"host": [
+										"{{base_url}}weekly_wages"
+									],
+									"path": [
+										"wages",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Reports",
+					"item": [
+						{
+							"name": "all report issue history",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{mini_admin}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}report_issue/list/",
+									"host": [
+										"{{base_url}}report_issue"
+									],
+									"path": [
+										"list",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "all report issue history single building",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{mini_admin}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}report_issue/list/2/",
+									"host": [
+										"{{base_url}}report_issue"
+									],
+									"path": [
+										"list",
+										"2",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "filter by date_type the report issue",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{mini_admin}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}report_issue/list/?date_type=last_week&status=pending&issue_type=rule_breaking",
+									"host": [
+										"{{base_url}}report_issue"
+									],
+									"path": [
+										"list",
+										""
+									],
+									"query": [
+										{
+											"key": "date_type",
+											"value": "last_week",
+											"description": "today,yesterday,this_week,last_week"
+										},
+										{
+											"key": "status",
+											"value": "pending"
+										},
+										{
+											"key": "issue_type",
+											"value": "rule_breaking",
+											"description": "maintenance,rule_breaking"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Admin DashBoard",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_auth}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}dashboard/admin/",
+							"host": [
+								"{{base_url}}dashboard"
+							],
+							"path": [
+								"admin",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Mini Admin Action",
+			"item": [
+				{
+					"name": "Reports",
+					"item": [
+						{
+							"name": "all report issue history",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{mini_admin}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}report_issue/list/",
+									"host": [
+										"{{base_url}}report_issue"
+									],
+									"path": [
+										"list",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "all report issue history single building",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{mini_admin}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}report_issue/list/2/",
+									"host": [
+										"{{base_url}}report_issue"
+									],
+									"path": [
+										"list",
+										"2",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "filter by date_type the report issue",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{mini_admin}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}report_issue/list/?issue_type=rule_breaking",
+									"host": [
+										"{{base_url}}report_issue"
+									],
+									"path": [
+										"list",
+										""
+									],
+									"query": [
+										{
+											"key": "date_type",
+											"value": "last_week",
+											"description": "today,yesterday,this_week,last_week",
+											"disabled": true
+										},
+										{
+											"key": "status",
+											"value": "pending",
+											"disabled": true
+										},
+										{
+											"key": "issue_type",
+											"value": "rule_breaking",
+											"description": "maintenance,rule_breaking"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "filter by building and city",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{admin_auth}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}report_issue/list/?task__building__id=3&issue_type=maintenance&task__area=2",
+									"host": [
+										"{{base_url}}report_issue"
+									],
+									"path": [
+										"list",
+										""
+									],
+									"query": [
+										{
+											"key": "task__building__id",
+											"value": "3"
+										},
+										{
+											"key": "issue_type",
+											"value": "maintenance"
+										},
+										{
+											"key": "task__area",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "schedule Task Manage",
+					"item": [
+						{
+							"name": "view schedule",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{mini_admin}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}schedule/list/",
+									"host": [
+										"{{base_url}}schedule"
+									],
+									"path": [
+										"list",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "view schedule with filter",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{mini_admin}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}schedule/list/?area=2&building=3&task_type=cleaning&date=2024-05-20&time=10:00",
+									"host": [
+										"{{base_url}}schedule"
+									],
+									"path": [
+										"list",
+										""
+									],
+									"query": [
+										{
+											"key": "area",
+											"value": "2"
+										},
+										{
+											"key": "building",
+											"value": "3"
+										},
+										{
+											"key": "task_type",
+											"value": "cleaning"
+										},
+										{
+											"key": "date",
+											"value": "2024-05-20"
+										},
+										{
+											"key": "time",
+											"value": "10:00"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "assign a task or schedule",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{admin_auth}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "referance_photos[0].photo",
+											"type": "file",
+											"src": "postman-cloud:///1f12c1d2-7d3e-4d30-9271-675e2711fc55"
+										},
+										{
+											"key": "area",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "building",
+											"value": "5",
+											"type": "text"
+										},
+										{
+											"key": "flat",
+											"value": "5",
+											"type": "text"
+										},
+										{
+											"key": "assigned_to",
+											"value": "19",
+											"type": "text"
+										},
+										{
+											"key": "assigned_by",
+											"value": "1",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "task_type",
+											"value": "cleaning",
+											"description": "cleaning,maintenance",
+											"type": "text"
+										},
+										{
+											"key": "date",
+											"value": "2024-05-20",
+											"type": "text"
+										},
+										{
+											"key": "time",
+											"value": "10:00:00",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}schedule/list/",
+									"host": [
+										"{{base_url}}schedule"
+									],
+									"path": [
+										"list",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update schedule task",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{admin_auth}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "referance_photos[0].photo",
+											"type": "file",
+											"src": "postman-cloud:///1f12c106-b9bf-4d80-b6f1-4f83a78b94c3"
+										},
+										{
+											"key": "referance_photos[1].photo",
+											"type": "file",
+											"src": "postman-cloud:///1f12c17d-7391-4b70-b1ab-36ddba99412e"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}schedule/list/3/",
+									"host": [
+										"{{base_url}}schedule"
+									],
+									"path": [
+										"list",
+										"3",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Building and Flat",
+					"item": [
+						{
+							"name": "Building",
+							"item": [
+								{
+									"name": "View Building area wise",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{admin_auth}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}building/list/?area=2",
+											"host": [
+												"{{base_url}}building"
+											],
+											"path": [
+												"list",
+												""
+											],
+											"query": [
+												{
+													"key": "area",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Flat",
+							"item": [
+								{
+									"name": "apartmenst",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{mini_admin}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}building/apartment/",
+											"host": [
+												"{{base_url}}building"
+											],
+											"path": [
+												"apartment",
+												""
+											],
+											"query": [
+												{
+													"key": "",
+													"value": "",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Dash Board",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{mini_admin}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}dashboard/mini-admin/",
+							"host": [
+								"{{base_url}}dashboard"
+							],
+							"path": [
+								"mini-admin",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "area",
+			"item": [
+				{
+					"name": "area list",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_auth}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}area/list/",
+							"host": [
+								"{{base_url}}area"
+							],
+							"path": [
+								"list",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "area wise building flat list",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_auth}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}area_building_flat_api/",
+							"host": [
+								"{{base_url}}area_building_flat_api"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "single area",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}area/list/2/",
+							"host": [
+								"{{base_url}}area"
+							],
+							"path": [
+								"list",
+								"2",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add new area",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_auth}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"nort us\",\n    \"description\": \"north us area\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}area/list/",
+							"host": [
+								"{{base_url}}area"
+							],
+							"path": [
+								"list",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update area",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_auth}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"nort south\",\n    \"description\": \"north south  USA\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}area/list/2/",
+							"host": [
+								"{{base_url}}area"
+							],
+							"path": [
+								"list",
+								"2",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete area",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_auth}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}area/list/3/",
+							"host": [
+								"{{base_url}}area"
+							],
+							"path": [
+								"list",
+								"3",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "area list search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}area/list/",
+							"host": [
+								"{{base_url}}area"
+							],
+							"path": [
+								"list",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cleaner Action",
+			"item": [
+				{
+					"name": "Tasks schedule",
+					"item": [
+						{
+							"name": "view own scheduled task",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{cleaner_auth}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}schedule/list/",
+									"host": [
+										"{{base_url}}schedule"
+									],
+									"path": [
+										"list",
+										""
+									],
+									"query": [
+										{
+											"key": "area",
+											"value": "1",
+											"disabled": true
+										},
+										{
+											"key": "building",
+											"value": "2",
+											"disabled": true
+										},
+										{
+											"key": "task_type",
+											"value": "cleaning",
+											"disabled": true
+										},
+										{
+											"key": "time",
+											"value": "10:00",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "filter scheduled task  by status",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{cleaner_auth}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}schedule/list/?status=completed",
+									"host": [
+										"{{base_url}}schedule"
+									],
+									"path": [
+										"list",
+										""
+									],
+									"query": [
+										{
+											"key": "area",
+											"value": "1",
+											"disabled": true
+										},
+										{
+											"key": "building",
+											"value": "2",
+											"disabled": true
+										},
+										{
+											"key": "task_type",
+											"value": "cleaning",
+											"disabled": true
+										},
+										{
+											"key": "time",
+											"value": "10:00",
+											"disabled": true
+										},
+										{
+											"key": "status",
+											"value": "completed"
+										},
+										{
+											"key": "status",
+											"value": "cancelled",
+											"disabled": true
+										},
+										{
+											"key": "status",
+											"value": "pending",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "status-count/ check",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{cleaner_auth}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}schedule/status-count/?date=2024-05-20",
+									"host": [
+										"{{base_url}}schedule"
+									],
+									"path": [
+										"status-count",
+										""
+									],
+									"query": [
+										{
+											"key": "date",
+											"value": "2024-05-20"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "filter scheduled task by date",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{cleaner_auth}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}schedule/list/?date=2024-05-20",
+									"host": [
+										"{{base_url}}schedule"
+									],
+									"path": [
+										"list",
+										""
+									],
+									"query": [
+										{
+											"key": "date",
+											"value": "2024-05-20"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "submmitted tasked list",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{cleaner_auth}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}schedule/submission/list/",
+									"host": [
+										"{{base_url}}schedule"
+									],
+									"path": [
+										"submission",
+										"list",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "submit task",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{cleaner_auth}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"schedule_task\":28,\n    \"task_1_note\":\"no need cleaning\",\n    \"task_2_note\":\"no need the cleaning\",\n    \"no_cleaning_required\":\"true\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}schedule/submission/list/",
+									"host": [
+										"{{base_url}}schedule"
+									],
+									"path": [
+										"submission",
+										"list",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Report Issue",
+					"item": [
+						{
+							"name": "view report issues",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{cleaner_auth}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}report_issue/list/",
+									"host": [
+										"{{base_url}}report_issue"
+									],
+									"path": [
+										"list",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "make a report issue",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{cleaner_auth}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "photo_or_video",
+											"type": "file",
+											"src": "postman-cloud:///1f12c17d-7391-4b70-b1ab-36ddba99412e"
+										},
+										{
+											"key": "task",
+											"value": "90",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "no",
+											"type": "text"
+										},
+										{
+											"key": "priority",
+											"value": "high",
+											"description": "medium,low",
+											"type": "text"
+										},
+										{
+											"key": "violate_type",
+											"value": "smoking_in_property",
+											"type": "text"
+										},
+										{
+											"key": "issue_type",
+											"value": "maintenance",
+											"description": "rule_breaking.maintenance ",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}report_issue/list/",
+									"host": [
+										"{{base_url}}report_issue"
+									],
+									"path": [
+										"list",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Repost History",
+					"item": [
+						{
+							"name": "all report issue history",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{cleaner_auth}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}report_issue/list/",
+									"host": [
+										"{{base_url}}report_issue"
+									],
+									"path": [
+										"list",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "filter by date_type the report issue",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{cleaner_auth}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}report_issue/list/?date_type=this_week&status=pending",
+									"host": [
+										"{{base_url}}report_issue"
+									],
+									"path": [
+										"list",
+										""
+									],
+									"query": [
+										{
+											"key": "date_type",
+											"value": "this_week",
+											"description": "today,yesterday,this_week,last_week"
+										},
+										{
+											"key": "status",
+											"value": "pending"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Dash board",
+					"item": [
+						{
+							"name": "dashboard",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{auth_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}dashboard/cleaner/?filter_by=this_week",
+									"host": [
+										"{{base_url}}dashboard"
+									],
+									"path": [
+										"cleaner",
+										""
+									],
+									"query": [
+										{
+											"key": "filter_by",
+											"value": "this_week",
+											"description": "today,yesterday,this_week,last_week,this_month,last_month"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Maintainer Action",
+			"item": [
+				{
+					"name": "Report issue",
+					"item": [
+						{
+							"name": "view all report issues",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{maintainer_auth}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}report_issue/list/",
+									"host": [
+										"{{base_url}}report_issue"
+									],
+									"path": [
+										"list",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "filter only pending report issue",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{maintainer_auth}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}report_issue/list/?status=pending",
+									"host": [
+										"{{base_url}}report_issue"
+									],
+									"path": [
+										"list",
+										""
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "pending",
+											"description": "# only pending"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "single report view",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{maintainer_auth}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}report_issue/list/",
+									"host": [
+										"{{base_url}}report_issue"
+									],
+									"path": [
+										"list",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Solving issue",
+					"item": [
+						{
+							"name": "get single issue completion report",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{cleaner_auth}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}report_issue/completion-report/list/2/",
+									"host": [
+										"{{base_url}}report_issue"
+									],
+									"path": [
+										"completion-report",
+										"list",
+										"2",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "view all completion-report",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{mini_admin}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}report_issue/completion-report/list/",
+									"host": [
+										"{{base_url}}report_issue"
+									],
+									"path": [
+										"completion-report",
+										"list",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "filter completion report",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{cleaner_auth}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}report_issue/completion-report/list/?status=processing&report_issue_id=22",
+									"host": [
+										"{{base_url}}report_issue"
+									],
+									"path": [
+										"completion-report",
+										"list",
+										""
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "processing",
+											"description": "can_not_do  or  processing or completed"
+										},
+										{
+											"key": "report_issue_id",
+											"value": "22"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "single completion report",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{maintainer_auth}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    // \"parts_cost\": \"50.00\",\n    // \"labour_cost\": \"20.00\",\n    \"status\": \"completed\",  //processing\n    // \"why_cannot_do\": \"\",\n    // \"additional_notes\": \"note\",\n    // \"created_at\": \"2026-04-22T08:29:19.258185Z\",\n    // \"updated_at\": \"2026-04-22T08:29:19.261237Z\",\n    // \"reported_by\": 19\n    \"note_list\":[\n        {\n            \"report_issue_note\":\"thire is no not dads\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}report_issue/completion-report/list/11/",
+									"host": [
+										"{{base_url}}report_issue"
+									],
+									"path": [
+										"completion-report",
+										"list",
+										"11",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "single completion report Copy",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{maintainer_auth}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"parts_cost\": \"50.00\",\n    \"labour_cost\": \"20.00\",\n    \"status\": \"processing\",\n    \"why_cannot_do\": \"no\",\n    \"additional_notes\": \"note\",\n    \"created_at\": \"2026-04-22T08:29:19.258185Z\",\n    \"updated_at\": \"2026-04-22T08:29:19.261237Z\",\n    \"reported_by\": 19\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}report_issue/completion-report/list/1/",
+									"host": [
+										"{{base_url}}report_issue"
+									],
+									"path": [
+										"completion-report",
+										"list",
+										"1",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "submit completion-report",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{maintainer_auth}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"report_issue\":17,\n    \"parts_cost\":45,\n    \"labour_cost\":20,\n    \"is_completed\":true,\n    \"status\":\"processing\", //processing or completed or can_not_do\n    \"why_cannot_do\":\"no\", //if status is can_not_do then this field is required\n    \"additional_notes\":\"note\",\n    \"note_list\":[\n        {\n            \"report_issue_note\":\"parts_ordered\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}report_issue/completion-report/list/",
+									"host": [
+										"{{base_url}}report_issue"
+									],
+									"path": [
+										"completion-report",
+										"list",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Maintainer Dashbord and",
+					"item": [
+						{
+							"name": "Home page",
+							"item": [
+								{
+									"name": "Building page",
+									"item": [
+										{
+											"name": "Dashboard",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer {{maintainer_auth}}",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}dashboard/maintainer/",
+													"host": [
+														"{{base_url}}dashboard"
+													],
+													"path": [
+														"maintainer",
+														""
+													],
+													"query": [
+														{
+															"key": "",
+															"value": "",
+															"disabled": true
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Bulding page",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer {{admin_auth}}",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}area/list/1/buildings/",
+													"host": [
+														"{{base_url}}area"
+													],
+													"path": [
+														"list",
+														"1",
+														"buildings",
+														""
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Flat Page",
+									"item": [
+										{
+											"name": "list apartments building wise",
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer {{maintainer_auth}}",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{base_url}}building/list/2/list_apartments/",
+													"host": [
+														"{{base_url}}building"
+													],
+													"path": [
+														"list",
+														"2",
+														"list_apartments",
+														""
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "flat information",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer {{cleaner_auth}}",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}building/apartment/1/property_information/",
+													"host": [
+														"{{base_url}}building"
+													],
+													"path": [
+														"apartment",
+														"1",
+														"property_information",
+														""
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "issue by apartment",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer {{mini_admin}}",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}report_issue/list/issue_by_apartment/?apartment_id=12",
+													"host": [
+														"{{base_url}}report_issue"
+													],
+													"path": [
+														"list",
+														"issue_by_apartment",
+														""
+													],
+													"query": [
+														{
+															"key": "apartment_id",
+															"value": "12"
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Earning Page",
+							"item": [
+								{
+									"name": "earning view",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{maintainer_auth}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}report_issue/costs/",
+											"host": [
+												"{{base_url}}report_issue"
+											],
+											"path": [
+												"costs",
+												""
+											],
+											"query": [
+												{
+													"key": "date_type",
+													"value": "today",
+													"description": "yesterday,this_week,last_week,this_month",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "filter issues completion report",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{maintainer_auth}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{base_url}}report_issue/costs/",
+											"host": [
+												"{{base_url}}report_issue"
+											],
+											"path": [
+												"costs",
+												""
+											],
+											"query": [
+												{
+													"key": "date_type",
+													"value": "today",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Notifications",
+			"item": [
+				{
+					"name": "notifications",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{mini_admin}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}notification/",
+							"host": [
+								"{{base_url}}notification"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "mark as read",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{mini_admin}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}notification/32/mark_as_read/",
+							"host": [
+								"{{base_url}}notification"
+							],
+							"path": [
+								"32",
+								"mark_as_read",
+								""
+							],
+							"query": [
+								{
+									"key": "A",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "mark  all as read",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{mini_admin}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}notification/mark_all_as_read/",
+							"host": [
+								"{{base_url}}notification"
+							],
+							"path": [
+								"mark_all_as_read",
+								""
+							],
+							"query": [
+								{
+									"key": "A",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "mark as  unread",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{maintainer_auth}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}notification/32/mark_as_unread/",
+							"host": [
+								"{{base_url}}notification"
+							],
+							"path": [
+								"32",
+								"mark_as_unread",
+								""
+							],
+							"query": [
+								{
+									"key": "A",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "mark all as  unread",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{mini_admin}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}notification/mark_all_as_unread/",
+							"host": [
+								"{{base_url}}notification"
+							],
+							"path": [
+								"mark_all_as_unread",
+								""
+							],
+							"query": [
+								{
+									"key": "A",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Team Message",
+			"item": [
+				{
+					"name": "Team  message",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_auth}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}team_message/list/",
+							"host": [
+								"{{base_url}}team_message"
+							],
+							"path": [
+								"list",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "single team message",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{maintainer_auth}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}team_message/list/2/",
+							"host": [
+								"{{base_url}}team_message"
+							],
+							"path": [
+								"list",
+								"2",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Team  message sent",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{mini_admin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\":\"hello boyes yo yoo guys dddddddddddddd\",\n    \"receivers\": [\n       18,19\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}team_message/list/",
+							"host": [
+								"{{base_url}}team_message"
+							],
+							"path": [
+								"list",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
